@@ -22,7 +22,7 @@ namespace CalculatorRPN
             {
                 if (calcStack.stack.Count == 0)
                 {
-                    Console.WriteLine("Commands: q c + - * / number");
+                    Console.WriteLine("Commands: c + - * / number");
                     Console.WriteLine("[]");
                 }
                 else Console.WriteLine(calcStack.GetStackString());                
