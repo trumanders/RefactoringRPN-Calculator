@@ -22,49 +22,11 @@ namespace CalculatorRPN
             CalculatorStack calcStack = new CalculatorStack();
             while (true)
             {
-                if (calcStack.stack.Count == 0)
-                {
-                    Console.WriteLine("Commands: q c + - * / number");
-                    Console.WriteLine("[]");                    
-                }
-                else
-                {
-                    Console.WriteLine(calcStack.GetStackString());                    
-                }
+
                 string input = Console.ReadLine().Trim();
                 if (input == "") input = " ";
-                char command = input[0];
-                if (Char.IsDigit(command))
-                {
-                    double value = Convert.ToDouble(input);
-                    calcStack.stack.Push(value);
-                }
-                else if (command == '+')
-                {
-                    calcStack.stack.Push(calcStack.stack.Pop() + calcStack.stack.Pop());
-                }
-                else if (command == '*')
-                {
-                    calcStack.stack.Push(calcStack.stack.Pop() * calcStack.stack.Pop());
-                }
-                else if (command == '-')
-                {
-                    double d = calcStack.stack.Pop();
-                    calcStack.stack.Push(calcStack.stack.Pop() - d);
-                }
-                else if (command == '/')
-                {
-                    double d = calcStack.stack.Pop();
-                    calcStack.stack.Push(calcStack.stack.Pop() / d);
-                }
-                else if (command == 'c')
-                {
-                    calcStack.stack.Clear();
-                }
-                else if (command == 'q')
-                {
-                    break;
-                }
+                calcStack.HandleOperation(input[0]);
+
                 else
                 {
                     Console.WriteLine("Illegal command, ignored");
