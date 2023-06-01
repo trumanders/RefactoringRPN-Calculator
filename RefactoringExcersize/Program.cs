@@ -10,6 +10,7 @@ using System.Text;
 -   make calculator class
 -   make input method
 -   fix exception when entering digit first and then invalid symbol ex: "5+"
+-   what is the purpose of entering 'q' ?
 */
 
 
