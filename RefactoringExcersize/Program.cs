@@ -25,13 +25,11 @@ namespace CalculatorRPN
                 if (calcStack.stack.Count == 0)
                 {
                     Console.WriteLine("Commands: q c + - * / number");
-                    Console.WriteLine("[]");
-                    
+                    Console.WriteLine("[]");                    
                 }
                 else
                 {
-                    Console.WriteLine(calcStack.stack.Count);
-                    calcStack.PrintStackString();
+                    Console.WriteLine(calcStack.GetStackString());                    
                 }
                 string input = Console.ReadLine().Trim();
                 if (input == "") input = " ";

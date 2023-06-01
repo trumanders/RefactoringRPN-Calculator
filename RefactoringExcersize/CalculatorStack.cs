@@ -1,20 +1,10 @@
 ﻿namespace RefactoringExcersize;
 public class CalculatorStack
 {
-    public Stack<double> stack;
+    public Stack<double> stack = new Stack<double>();
 
-    public CalculatorStack()
+    public string GetStackString()
     {
-        stack = new Stack<double>();
-    }
-
-    //public int StackSize()
-    //{
-    //    return stack.Count();
-    //}
-
-    public void PrintStackString()
-    {
-        Console.WriteLine("[" + string.Join(", ", stack.ToArray()) + "]");
+        return "[" + string.Join(", ", stack.ToArray()) + "]";
     }
 }
