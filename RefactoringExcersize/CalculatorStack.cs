@@ -8,73 +8,44 @@ public class CalculatorStack
         return "[" + string.Join(", ", stack.ToArray()) + "]";
     }
 
-    public HandleOperation(char input)
+    public bool HandleOperation(string input)
     {
-        if (stack.Count == 0)
+        if (Char.IsDigit(input[0]))
         {
-            Console.WriteLine("Commands: q c + - * / number");
-            Console.WriteLine("[]");
+            stack.Push(Convert.ToDouble(input));
+            return true;
         }
+
         else
         {
-            Console.WriteLine(GetStackString());
-        }
+            switch (input[0])
+            {
+                case '+':
+                    stack.Push(stack.Pop() + stack.Pop());
+                    return true;
 
-        switch (input)
-        {
-            case '+':
-                stack.Push(stack.Pop() + stack.Pop());
-                break;
-            case '*':
-                stack.Push(stack.Pop() * stack.Pop());
+                case '*':
+                    stack.Push(stack.Pop() * stack.Pop());
+                    return true;
 
-                break;
-            case '-':
-                double d = stack.Pop();
-                stack.Push(stack.Pop() - d);
-                break;
-            case '/':
-                double d = stack.Pop();
-                stack.Push(stack.Pop() / d);
-                break;
-            case 'c':
-                stack.Clear();
-                break;
-            case 'q':
-                break;
+                case '-':
+                    double subtract = stack.Pop();
+                    stack.Push(stack.Pop() - subtract);
+                    return true;
 
-        }
+                case '/':
+                    double divide = stack.Pop();
+                    stack.Push(stack.Pop() / divide);
+                    return true;
 
+                case 'c':
+                    stack.Clear();
+                    return true;
 
-
-        if (Char.IsDigit(command))
-        {
-            double value = Convert.ToDouble(input);
-            stack.Push(value);
+                case 'q':
+                    return true;
+            }
         }
-        else if (command == '+')
-        {
-            
-        }
-        else if (command == '*')
-        {
-            
-        }
-        else if (command == '-')
-        {
-            
-        }
-        else if (command == '/')
-        {
-            
-        }
-        else if (command == 'c')
-        {
-            
-        }
-        else if (command == 'q')
-        {
-            break;
-        }
+        return false;
     }
 }

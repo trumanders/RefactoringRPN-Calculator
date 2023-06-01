@@ -9,7 +9,7 @@ using System.Text;
 -   invalid input error handling with instructions
 -   make calculator class
 -   make input method
--   
+-   fix exception when entering digit first and then invalid symbol ex: "5+"
 */
 
 
@@ -22,16 +22,21 @@ namespace CalculatorRPN
             CalculatorStack calcStack = new CalculatorStack();
             while (true)
             {
+                if (calcStack.stack.Count == 0)
+                {
+                    Console.WriteLine("Commands: q c + - * / number");
+                    Console.WriteLine("[]");
+                }
+                else
+                {
+                    Console.WriteLine(calcStack.GetStackString());
+                }
 
                 string input = Console.ReadLine().Trim();
                 if (input == "") input = " ";
-                calcStack.HandleOperation(input[0]);
-
-                else
-                {
+                
+                if (!calcStack.HandleOperation(input))                
                     Console.WriteLine("Illegal command, ignored");
-                }
-
             }
         }
     }
