@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RefactoringExcersize;
+using System;
 using System.Text;
+
 
 /* REFACTORING:
 -   use Stack type (get rid of custom class DoubleStack)
@@ -17,18 +19,19 @@ namespace CalculatorRPN
     {
         static void Main(string[] args)
         {
-            DoubleStack stack = new DoubleStack();
+            CalculatorStack calcStack = new CalculatorStack();
             while (true)
             {
-                if (stack.Depth == 0)
+                if (calcStack.stack.Count == 0)
                 {
                     Console.WriteLine("Commands: q c + - * / number");
                     Console.WriteLine("[]");
+                    
                 }
                 else
                 {
-                    Console.WriteLine(stack.ToString());
-
+                    Console.WriteLine(calcStack.stack.Count);
+                    calcStack.PrintStackString();
                 }
                 string input = Console.ReadLine().Trim();
                 if (input == "") input = " ";
@@ -36,29 +39,29 @@ namespace CalculatorRPN
                 if (Char.IsDigit(command))
                 {
                     double value = Convert.ToDouble(input);
-                    stack.Push(value);
+                    calcStack.stack.Push(value);
                 }
                 else if (command == '+')
                 {
-                    stack.Push(stack.Pop() + stack.Pop());
+                    calcStack.stack.Push(calcStack.stack.Pop() + calcStack.stack.Pop());
                 }
                 else if (command == '*')
                 {
-                    stack.Push(stack.Pop() * stack.Pop());
+                    calcStack.stack.Push(calcStack.stack.Pop() * calcStack.stack.Pop());
                 }
                 else if (command == '-')
                 {
-                    double d = stack.Pop();
-                    stack.Push(stack.Pop() - d);
+                    double d = calcStack.stack.Pop();
+                    calcStack.stack.Push(calcStack.stack.Pop() - d);
                 }
                 else if (command == '/')
                 {
-                    double d = stack.Pop();
-                    stack.Push(stack.Pop() / d);
+                    double d = calcStack.stack.Pop();
+                    calcStack.stack.Push(calcStack.stack.Pop() / d);
                 }
                 else if (command == 'c')
                 {
-                    stack.Clear();
+                    calcStack.stack.Clear();
                 }
                 else if (command == 'q')
                 {
@@ -70,67 +73,6 @@ namespace CalculatorRPN
                 }
 
             }
-        }
-    }
-
-    class DoubleStack
-    {
-        private double[] data;
-        public int Depth { get; private set; }
-
-        public DoubleStack()
-        {
-            data = new double[1000];
-            Depth = 0;
-        }
-
-        public void Push(double value)
-        {
-            data[Depth++] = value;
-        }
-
-        public double Pop()
-        {
-            if (Depth > 0)
-            {
-                return data[--Depth];
-            }
-            else
-            {
-                Console.WriteLine("stack empty, returning 0");
-                return 0;
-            }
-        }
-
-        public double Peek()
-        {
-            if (Depth > 0)
-            {
-                return data[Depth - 1];
-            }
-            else
-            {
-                Console.WriteLine("stack empty, returning 0");
-                return 0;
-            }
-        }
-
-        public override string ToString()
-        {
-            StringBuilder b = new StringBuilder();
-            b.Append('[');
-            for (int i = Depth - 1; ; i--)
-            {
-                b.Append(data[i]);
-                if (i == 0)
-                    return b.Append(']').ToString();
-                b.Append(", ");
-            }
-        }
-
-        public void Clear()
-        {
-            Depth = 0;
         }
     }
 }
