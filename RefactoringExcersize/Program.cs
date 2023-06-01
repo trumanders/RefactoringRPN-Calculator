@@ -9,7 +9,7 @@ using System.Text;
 -   invalid input error handling with instructions
 -   make calculator class
 -   make input method
--   
+-   fix exception when entering digit first and then invalid symbol ex: "5+"
 */
 
 
@@ -25,51 +25,18 @@ namespace CalculatorRPN
                 if (calcStack.stack.Count == 0)
                 {
                     Console.WriteLine("Commands: q c + - * / number");
-                    Console.WriteLine("[]");                    
+                    Console.WriteLine("[]");
                 }
                 else
                 {
-                    Console.WriteLine(calcStack.GetStackString());                    
-                }
-                string input = Console.ReadLine().Trim();
-                if (input == "") input = " ";
-                char command = input[0];
-                if (Char.IsDigit(command))
-                {
-                    double value = Convert.ToDouble(input);
-                    calcStack.stack.Push(value);
-                }
-                else if (command == '+')
-                {
-                    calcStack.stack.Push(calcStack.stack.Pop() + calcStack.stack.Pop());
-                }
-                else if (command == '*')
-                {
-                    calcStack.stack.Push(calcStack.stack.Pop() * calcStack.stack.Pop());
-                }
-                else if (command == '-')
-                {
-                    double d = calcStack.stack.Pop();
-                    calcStack.stack.Push(calcStack.stack.Pop() - d);
-                }
-                else if (command == '/')
-                {
-                    double d = calcStack.stack.Pop();
-                    calcStack.stack.Push(calcStack.stack.Pop() / d);
-                }
-                else if (command == 'c')
-                {
-                    calcStack.stack.Clear();
-                }
-                else if (command == 'q')
-                {
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Illegal command, ignored");
+                    Console.WriteLine(calcStack.GetStackString());
                 }
 
+                string input = Console.ReadLine().Trim();
+                if (input == "") input = " ";
+                
+                if (!calcStack.HandleOperation(input))                
+                    Console.WriteLine("Illegal command, ignored");
             }
         }
     }
