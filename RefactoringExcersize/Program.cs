@@ -1,7 +1,4 @@
 ﻿using RefactoringExcersize;
-using System;
-using System.Text;
-
 
 /* REFACTORING:
 -   use Stack type (get rid of custom class DoubleStack)
