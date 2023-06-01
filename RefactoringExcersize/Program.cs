@@ -25,10 +25,7 @@ namespace CalculatorRPN
                     Console.WriteLine("Commands: q c + - * / number");
                     Console.WriteLine("[]");
                 }
-                else
-                {
-                    Console.WriteLine(calcStack.GetStackString());
-                }
+                else Console.WriteLine(calcStack.GetStackString());                
 
                 string input = Console.ReadLine().Trim();
                 if (input == "") input = " ";
