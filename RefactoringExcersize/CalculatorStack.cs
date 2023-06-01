@@ -12,11 +12,16 @@ public class CalculatorStack
     {
         if (Char.IsDigit(input[0]))
         {
-            stack.Push(Convert.ToDouble(input));
+            if (!Double.TryParse(input, out double num)) return false;
+            stack.Push(num);
             return true;
         }
+
+        // Returns false if string is larger than 1 or 
+        // contains something other than en operator
         else
         {
+            if (input.Length > 1) return false;
             if (stack.Count > 1)
             {
                 double first = stack.Pop();
