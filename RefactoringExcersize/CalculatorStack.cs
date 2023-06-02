@@ -16,7 +16,7 @@ public class CalculatorStack
             stack.Push(num);
             return true;
         }        
-        else if (input.Length != 1) return false;
+        if (input.Length != 1) return false;
         else if (input[0] == 'c') { stack.Clear(); return true; }
         else if (stack.Count > 1 && performCalculation(input[0]))
             return true;                             
